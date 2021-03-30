@@ -116,7 +116,7 @@ class DoublyLinkedList {
         // the first check is to see if the node you're inserting before is the head, if so then you just set the nodeToInsert as the head  
         // else if it is NOT the head then it means that there is another node before it, and you have to update that nodes pointer
         if(this.head === node) {
-            this.head = nodeToInsert
+            this.head = nodeToInsert;
         } else { 
             node.prev.next = nodetoInsert;
         }
@@ -130,6 +130,19 @@ class DoublyLinkedList {
         // the logic here is that if the nodeToInsert is the head AND tail then you dont have to do anything because it exists in the list, and is the only node
         // so you can't insert it before itself 
         if(nodeToInsert === this.head && nodeToInsert === this.tail) return; 
+
+        // remove the node and update the pointers within the node to be inserted 
+        this.removeNode(nodeToInsert); 
+        nodeToInsert.prev = node; 
+        nodeToInsert.next = node.next; // important to set this before you change node.next 
+
+        // if the node you're inserting after is the tail then you're setting a new tail, else you have to also account for setting the subsequent nodes prev pointer
+        if(this.tail === node) {
+            this.tail = nodeToInsert;
+        } else {
+            node.next.prev = nodeToInsert; 
+        }
+        node.next = nodeToInsert;
     }
 
     setHead(node) {
