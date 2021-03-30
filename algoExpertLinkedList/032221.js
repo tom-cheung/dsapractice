@@ -98,11 +98,38 @@ class DoublyLinkedList {
     }
 
     insertBefore(node, nodeToInsert) {
+        // the goal here is to insert a node before another given node. 
+        // some questions I have here would be, can the nodeToInsert be in the linkedlist already or is it a new node? 
+        
+        // the logic here is that if the nodeToInsert is the head AND tail then you dont have to do anything because it exists in the list, and is the only node
+        // so you can't insert it before itself 
+        if(nodeToInsert === this.head && nodeToInsert === this.tail) return;
+        
+        // assuming the nodeToInsert IS within the linked list then you first should remove it. Removing it will modify the pointers within it and it's surrounded nodes 
+        this.removeNode(nodeToInsert); 
 
+        // updating the pointers for the nodeToInsert
+        nodeToInsert.next = node; 
+        nodeToInsert.prev = node.prev; 
+
+        // now its time to insert it before the given node
+        // the first check is to see if the node you're inserting before is the head, if so then you just set the nodeToInsert as the head  
+        // else if it is NOT the head then it means that there is another node before it, and you have to update that nodes pointer
+        if(this.head === node) {
+            this.head = nodeToInsert
+        } else { 
+            node.prev.next = nodetoInsert;
+        }
+        
+        // lastly you want to update the node you're inserting before to point back towards to the new node. The reason for doing this last is it contains
+        // the pointer which is needed to access any nodes before it. Changing too early would break your ability to traverse the list properly  
+        node.prev = nodeToInsert
     }
 
     insertAfter(node, nodeToInsert) {
-
+        // the logic here is that if the nodeToInsert is the head AND tail then you dont have to do anything because it exists in the list, and is the only node
+        // so you can't insert it before itself 
+        if(nodeToInsert === this.head && nodeToInsert === this.tail) return; 
     }
 
     setHead(node) {
