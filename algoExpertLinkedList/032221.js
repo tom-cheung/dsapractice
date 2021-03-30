@@ -21,10 +21,10 @@ class DoublyLinkedList {
     }; 
 
     containsNodeWithValue(value) {
-        // traverse through the linked list either starting from the head or the tail 
-        // can use a while loop to traverse through the list (condition being if the current node you're on isn't equal to the search value and isn't equal to null)
-        // if it is null then it means you've reach the end of the list 
-        // if it isnt null and if the value isn't the value being search for then you want to move onto the next node, i.e. set the current node to the next node 
+
+        // would this potentially make it more efficient by proactively checking the head and tail? 
+        // if(this.head.value === value) return this.head; 
+        // if(this.tail.value === value) return this.tail; 
 
         // setting the currentNode to the head, this will hold the current node as you iterate through the list
         let currentNode = this.head;
@@ -42,11 +42,32 @@ class DoublyLinkedList {
     }
 
     removeNode(node) {
-        // remove the pointers on the node being removed 
-        // remove the .next and .prev of the adjacent nodes 
-        // given the node 
 
-        if(node === this.head)
+        // if the node you're removing is the head, then you simply set the head as the node following the previous head, this works even if there is only one node
+        // because you would be essentially be destroying the list by setting the head as null 
+        if(node === this.head) {
+            this.head = this.head.next; 
+        }
+
+        // same logic as the head, basically destroying the list 
+        if(node === this.tail) {
+            this.tail = this.tail.prev; 
+        }
+
+        // the below methods can be placed in a helper method to make this cleaner 
+
+        // if their are nodes around node that you're removing then you want to connect them with each other. This 
+        if(node.prev !== null) {
+            node.prev.next = node.next
+        };
+
+        if(node.next !== null) {
+            node.next.prev = node.prev
+        };
+
+        node.prev = null; 
+        node.next = null; 
+
 
     }
 
