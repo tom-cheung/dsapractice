@@ -38,6 +38,7 @@ class DoublyLinkedList {
         }; 
 
         // returns either a node or null, null if you've reached the end of the list and havent found the value 
+        // just realized that this only returns the first node with the given value, because it stops iterating after it finds a node with the supplied value
         return currentNode; 
     }
 
@@ -73,6 +74,27 @@ class DoublyLinkedList {
 
     removeNodeWithValue(value) {
         // you have to search through the linkedlist, but you cant stop once you find a node with the specific value, you have to find ALL nodes with that value 
+
+        // the goal here is to find and remove all nodes with the given value 
+        // this would require that I iterate through the entire length of the linkedlist and check each node to see if it's value matches the given value 
+        // when I find a node with the given value I should disconnect/remove it from the list, I can make use of the previous remove method 
+        // it is important that before removing the node I do not break the link, otherwise I cannot continue traversing the list 
+        
+        // cant use the previously defined value search method because that only returns one node, and multiple nodes could have the same value 
+
+        let currentNode = this.head; 
+
+        // notice the difference in logic is than in the other search function. Here you do NOT want to stop iterating when you find a node with the value
+        // supplied, because you want to find ALL nodes with that value. You only stop iterating when the currentNode is null meaning you've hit the end of the list 
+        while(currentNode !== null) {
+            let nodeToRemove = currentNode;
+            currentNode = currentNode.next; 
+
+            // remove the node from the list by using the remove function previously defined 
+            if(nodeToRemove.value === value) {
+                this.removeNode(nodeToRemove)
+            }
+        }
     }
 
     insertBefore(node, nodeToInsert) {
