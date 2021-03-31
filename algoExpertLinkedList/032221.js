@@ -31,7 +31,12 @@ class DoublyLinkedList {
         
         // this while loop is how you will iterate through the list, the conditions check that you're not at the end of the list or that the node isn't the value you're
         // looking for. If either conditions are met then it means that you've reached the end of the list or you've found the value  
-        while(currentNode !== null || node.value != value ) {
+        // notice the order of this while condition matters. It also MUST be && with javascript.
+            // if you put the node.value !== value first, if currentNode is null it WILL break
+            // likewise the way || works is, the check for currentNode.value !== value is run even if currentNode.value is null, so it also breaks 
+            // with && the logic goes, if currentNode is NOT null then check the value, once it IS null the expression evaluates to false
+                // this part is very important... good to know   
+        while(currentNode !== null && currentNode.value !== value ) {
 
             // sets the currentNode to the next node
             currentNode = currentNode.next
@@ -146,15 +151,49 @@ class DoublyLinkedList {
     }
 
     setHead(node) {
+        if(this.head === null) {
+            this.head = node;
+            this.tail = node; 
+        } else {
+            // this assumes there is a head, in which case you can use insert before 
+            // this.head.prev = node; 
+            // node.next = this.head; 
+            // this.head = node;
+            this.insertBefore(this.head, node) 
+        }
+
 
     }
 
     setTail(node) {
-
+        // if the tail is null there is no list and you're creating one 
+        if(this.tail === null) {
+            // can just call setHead before the same logic there applies 
+            this.setHead(node)
+        } else {
+            this.insertAfter(this.tail, node)
+        }
     }
 
     insertAtPosition(position, nodetoInsert) {
+        if(position === 1) {
+            this.setHead(nodetoInsert)
+            return 
+        } 
 
+        let currentNode = this.head.next; 
+        let currentPositon = 2; 
+
+        while(currentPositon != position && currentNode !== null) {
+            currentNode = currentNode.next; 
+            currentPositon++; 
+        }
+
+        if(currentNode !== null) {
+            this.insertBefore(currentNode, nodetoInsert)
+        } else {
+            this.setTail(nodetoInsert)
+        }
     }
 }
 
