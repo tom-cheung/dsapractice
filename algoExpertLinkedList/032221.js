@@ -62,7 +62,9 @@ class DoublyLinkedList {
 
         // the below methods can be placed in a helper method to make this cleaner 
 
-        // if their are nodes around node that you're removing then you want to connect them with each other. This 
+        // if their are nodes around node that you're removing then you want to connect them with each other.
+        // this logic also works with a 2 node list, which essentially will convert it to a proper 1 node list 
+        
         if(node.prev !== null) {
             node.prev.next = node.next
         };
@@ -71,6 +73,7 @@ class DoublyLinkedList {
             node.next.prev = node.prev
         };
 
+        // important that you do this step last because the above functons require these pointers. 
         node.prev = null; 
         node.next = null; 
 
@@ -96,6 +99,7 @@ class DoublyLinkedList {
             currentNode = currentNode.next; 
 
             // remove the node from the list by using the remove function previously defined 
+            // logic for removing a single node, double node, is already handled by the remove function 
             if(nodeToRemove.value === value) {
                 this.removeNode(nodeToRemove)
             }
@@ -112,6 +116,8 @@ class DoublyLinkedList {
         
         // assuming the nodeToInsert IS within the linked list then you first should remove it. Removing it will modify the pointers within it and it's surrounded nodes 
         this.removeNode(nodeToInsert); 
+
+        // do we need to address a case where you're asked to insert the same node before itself? it's silly but could this be an edge case? 
 
         // updating the pointers for the nodeToInsert
         nodeToInsert.next = node; 
