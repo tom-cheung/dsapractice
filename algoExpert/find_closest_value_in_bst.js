@@ -22,3 +22,32 @@ function findClosestValueInBST(tree, target) {
         return subsequentValue
     }
 }
+
+// on average time complexity is equal to O(log(N)) because you're exploring half the tree each time
+// space complexity is also O(log(N)) 
+
+// iterative approach 
+// this is better because the space complexity is only O(1) because you're constantly rewriting the same two variables 
+
+function findClosestValueInBst(tree, target) {
+    // Write your code here.
+      let currentNode = tree; 
+      let closest = tree.value; 
+      
+      while(currentNode !== null && closest !== target) {
+          
+          if(Math.abs(target - closest) > Math.abs(target - currentNode.value)) {
+              closest = currentNode.value 
+          }
+   
+          if(target < currentNode.value) {
+              currentNode = currentNode.left
+          } else {
+              currentNode = currentNode.right
+          }
+          
+  
+      }
+      
+      return closest; 
+  }
