@@ -3,7 +3,6 @@ function QuestionsMarks(str) {
     // code goes here
     let indices = []; 
     
-    
     for(let i = 0; i < str.length; i++) {
       let char = str[i]
       if(!isNaN(parseInt(char))) {
