@@ -12,12 +12,12 @@
 function TreeConstructor(strArr) { 
 
     // code goes here  
-    let childNodes = {}; // {1:1, 3:1, 2:1, 5:1}
-    let parentNodes = {}; // {2: 2, 12:1, }
+    let childNodes = {}; // {1:1, 3:1, 2:1, 5:1} // constant time 
+    let parentNodes = {}; // {2: 2, 12:1, } // constant time 
     let rootNode = []; // 
   
-    for(let pair of strArr) {
-        let arrPair = pair.slice(1, pair.length-1).split(",")
+    for(let pair of strArr) { // 0(n) * 
+      let arrPair = pair.slice(1, pair.length-1).split(",") // .replace(/[()]/g, "") // O(m)
       let child = arrPair[0]; // 5
       let parent = arrPair[1]; // 2
   
@@ -36,8 +36,6 @@ function TreeConstructor(strArr) {
       }
     }
   
-    console.log(parentNodes);
-    console.log(childNodes);
     for(let parent of Object.keys(parentNodes)) {
       if(childNodes[parent] === undefined) {
         rootNode.push(parent)
@@ -51,7 +49,10 @@ function TreeConstructor(strArr) {
   console.log(TreeConstructor(["(2,3)", "(1,2)", "(4,9)", "(9,3)", "(12,9)", "(6,4)"]))
   
   // ["(1,2)", "(3,2)", "(2,12)", "(5,2)"]
-  
+
+//      12
+// 1 -> 2 <- 3
+//      5
   
   // will the numbers be single digits? 
   // if so the indices will always be the same for each element pair 
