@@ -39,22 +39,18 @@ class BinaryTree {
       sumHelper(node.right, newSum, branchSums);
     }
 
-    let testNode = new BinaryTree(5);
-    testNode.left = new BinaryTree(3); 
-    testNode.right = new BinaryTree(10);
-    console.log(testNode); 
 
     // no helper function solution 
 
     // This is the class of the input root.
     // Do not edit it.
-    class BinaryTree {
-        constructor(value) {
-          this.value = value;
-          this.left = null;
-          this.right = null;
-        }
-      }
+    // class BinaryTree {
+    //     constructor(value) {
+    //       this.value = value;
+    //       this.left = null;
+    //       this.right = null;
+    //     }
+    //   }
   
     function branchSums(root, sum = 0, allSums = []) {
       // Write your code here.
@@ -85,3 +81,10 @@ class BinaryTree {
     // because I have to sum each branch I have to reach the leaf nodes 
     // depth first search, recusively would be the best bet
   
+
+    // testing count sort and using it to sort the array and setting the value to be an object
+    // where the key is the frequency of the number and the value is an index showing where the element appears 
+    // now that I think about it I dont even need the key/value pair, just an array with the indices is fine 
+
+
+

@@ -76,3 +76,30 @@ function countingSortTwo(arr) {
 }
 
 console.log(countingSortTwo([14, 28, 12, 14]))
+
+// funny count sort 
+
+let funnyArray = []; 
+
+let numbers = [5, 4, 2, 1, 4, 5, 4, 9, 9, 9, 7, 3, 1, 1]
+
+
+for(let i = 0; i < numbers.length; i++) {
+    let num = numbers[i];
+    
+    if(funnyArray[num] === undefined) {
+        // funnyArray[num] = {1: [i]}
+        funnyArray[num] = [i]
+    } else {
+        funnyArray[num].push(i)
+        // let frequency = Object.keys(funnyArray[num])[0]; 
+        // ***** // funny enough funnyArray[num][frequency].push(i) doesn't work *****
+        // let arr = funnyArray[num][frequency]; 
+        // arr.push(i)
+        // let newFrequency = parseInt(frequency)
+        // funnyArray[num] = {[newFrequency+= 1]: arr}; 
+    }
+
+}
+
+console.log(funnyArray); 
