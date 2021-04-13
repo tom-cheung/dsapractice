@@ -1,5 +1,12 @@
 // you're using the recursive call not to return something but to push things into a pointer that you keep passing down each call 
-// 
+
+class BinaryTree {
+    constructor(value) {
+      this.value = value;
+      this.left = null;
+      this.right = null;
+    }
+  }
 
 function branchSums(root) {
     // Write your code here.
@@ -23,3 +30,8 @@ function branchSums(root) {
       sumHelper(node.left, newSum, branchSums);
       sumHelper(node.right, newSum, branchSums);
   }
+
+  let testNode = new BinaryTree(5);
+  testNode.left = new BinaryTree(3); 
+  testNode.right = new BinaryTree(10);
+  console.log(testNode); 
