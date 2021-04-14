@@ -191,73 +191,74 @@ function flipIt(board) {
 }
 
 // console.log(board);
-console.log(flipIt(board3));
-console.log(board3);
+// console.log(flipIt(board3));
+// console.log(board3);
 
 function flipIt(board) {
     let checked = {}; 
 
-    for(let rowIdx = 0; rowIdx < board.length; rowIdx++) {
+    for(let i = 0; i < board.length; i++) {
 
-        for(let colIdx = 0; colIdx < board[rowIdx].length; colIdx++) { 
+        for(let j = 0; j < board[i].length; j++) { 
 
    
-            if(board[rowIdx][colIdx] === "O" && checked[[rowIdx, colIdx]] === undefined) {
+            if(board[i][j] === "O" && checked[[i, j]] === undefined) {
 
  
-                let stack = [[rowIdx, colIdx]]
-                let visited = [[rowIdx, colIdx]]; 
+                let stack = [[i, j]]
+                let visited = [[i, j]]; 
                 let invalid = false; 
 
                 while(stack.length > 0) {
 
                     let prevElement = stack.pop(); 
                     checked[prevElement] = true; 
+
+
    
-                    if(board[prevElement[0]][prevElement[1] + 1] === undefined || board[prevElement[0] + 1] === undefined || board[prevElement[0] - 1] === undefined || board[prevElement[0]][prevElement[1] - 1] === undefined)  {
-                        invalid = true; 
-                    }
+                    // if(board[prevElement[0]][prevElement[1] + 1] === undefined || board[prevElement[0] + 1] === undefined || board[prevElement[0] - 1] === undefined || board[prevElement[0]][prevElement[1] - 1] === undefined)  {
+                    //     invalid = true; 
+                    // }
 
-                    if( board[prevElement[0]][prevElement[1] + 1] !== undefined && board[prevElement[0]][prevElement[1] + 1] === "O") {
+                    // if( board[prevElement[0]][prevElement[1] + 1] !== undefined && board[prevElement[0]][prevElement[1] + 1] === "O") {
 
-                        if(checked[ [prevElement[0], prevElement[1] + 1] ] === undefined) {
+                    //     if(checked[ [prevElement[0], prevElement[1] + 1] ] === undefined) {
  
-                            stack.push([prevElement[0], prevElement[1] + 1])
-                            visited.push([prevElement[0], prevElement[1] + 1])
-                        }
-                    }
+                    //         stack.push([prevElement[0], prevElement[1] + 1])
+                    //         visited.push([prevElement[0], prevElement[1] + 1])
+                    //     }
+                    // }
 
     
-                    if(board[prevElement[0] + 1] !== undefined && board[prevElement[0] + 1][prevElement[1]] === "O") {
+                    // if(board[prevElement[0] + 1] !== undefined && board[prevElement[0] + 1][prevElement[1]] === "O") {
 
-                        if(checked[ [prevElement[0] + 1, prevElement[1]] ] === undefined) {
+                    //     if(checked[ [prevElement[0] + 1, prevElement[1]] ] === undefined) {
   
-                            stack.push([prevElement[0] + 1, prevElement[1]])
-                            visited.push([prevElement[0] + 1, prevElement[1]])
-                        }
+                    //         stack.push([prevElement[0] + 1, prevElement[1]])
+                    //         visited.push([prevElement[0] + 1, prevElement[1]])
+                    //     }
 
-                    }
+                    // }
 
     
-                    if(board[prevElement[0] - 1] !== undefined && board[prevElement[0] - 1][prevElement[1]] === "O") {
+                    // if(board[prevElement[0] - 1] !== undefined && board[prevElement[0] - 1][prevElement[1]] === "O") {
 
-                        if(checked[ [prevElement[0] - 1, prevElement[1]] ] === undefined) {
+                    //     if(checked[ [prevElement[0] - 1, prevElement[1]] ] === undefined) {
   
-                            stack.push([prevElement[0] - 1, prevElement[1]])
-                            visited.push([prevElement[0] - 1, prevElement[1]])
-                        }
+                    //         stack.push([prevElement[0] - 1, prevElement[1]])
+                    //         visited.push([prevElement[0] - 1, prevElement[1]])
+                    //     }
 
-                    }
+                    // }
 
-                    if(board[prevElement[0]][prevElement[1] - 1] !== undefined && board[prevElement[0]][prevElement[1] - 1] === "O") {
+                    // if(board[prevElement[0]][prevElement[1] - 1] !== undefined && board[prevElement[0]][prevElement[1] - 1] === "O") {
          
-                        if(checked[ [prevElement[0], prevElement[1] - 1] ] === undefined) {
-                            stack.push([prevElement[0], prevElement[1] - 1])
-                            visited.push([prevElement[0], prevElement[1] - 1])
-                        }
+                    //     if(checked[ [prevElement[0], prevElement[1] - 1] ] === undefined) {
+                    //         stack.push([prevElement[0], prevElement[1] - 1])
+                    //         visited.push([prevElement[0], prevElement[1] - 1])
+                    //     }
 
-
-                    }
+                    // }
                 }
 
                 if(!invalid) {
@@ -271,3 +272,54 @@ function flipIt(board) {
         }
     }
 }
+
+
+    var solve = function(board) {
+        // return null if the board is empty 
+        if(board.length ==0) return null 
+
+        // iterates through the board and upon finding a O at any of the border locations
+        // passes the indices of that O along with the board to the recursive function
+        for(var i=0;i<board.length;i++){
+            for(var j=0;j<board[0].length;j++){
+                if(board[i][j] == 'O' && (i==0 || i==board.length-1 || j==0 || j==board[0].length-1)){
+                    console.log(i, j);
+                      dfs(board,i,j)
+                   }
+            }
+        }
+
+        // console.log(board); 
+
+        // iterates through the board again 
+        // any O elements left are not connected to a border and can be safely flipped to X 
+        for(var i=0;i<board.length;i++){
+            for(var j=0;j<board[0].length;j++){
+                if(board[i][j]=='W'){
+                      board[i][j]='O'
+                   }
+                else {
+                        board[i][j]='X'
+                        }
+            }
+        }
+
+        return board
+    };
+
+    function dfs(board,i,j){
+        // this base case will return if you either step off the grid/board or if the value you encounter is X
+        // if it is O then you switch it to W 
+        // the purpose is you want to catch all connecting O to a border O 
+        if(i<0 || j<0 || i>=board.length || j >=board[0].length || board[i][j]=='X' || board[i][j]=='W'){
+              return 
+           }
+        board[i][j]='W';
+        dfs(board,i+1,j)
+        dfs(board,i-1,j)
+        dfs(board,i,j+1)
+        dfs(board,i,j-1)
+        return 
+    }
+
+solve(board3)
