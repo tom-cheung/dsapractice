@@ -283,7 +283,8 @@ function flipIt(board) {
         for(var i=0;i<board.length;i++){
             for(var j=0;j<board[0].length;j++){
                 if(board[i][j] == 'O' && (i==0 || i==board.length-1 || j==0 || j==board[0].length-1)){
-                    console.log(i, j);
+                    // console.log(i, j);
+                    // recursive call 
                       dfs(board,i,j)
                    }
             }
@@ -322,4 +323,40 @@ function flipIt(board) {
         return 
     }
 
-solve(board3)
+// solve(board3)
+
+function flipBoard(board) {
+    if(board.length === 0) return 0;
+    
+    for(let i = 0; i < board.length; i++) {
+        for(let j = 0; j < board[i].length; j++) {
+            if(board[i][j] === "O" && (i === 0 || i === board.length - 1 || j === 0 || j === board[i].length - 1)) {
+                findNeighbors(board, i, j); 
+            }
+        }
+    }
+
+    for(let i = 0; i < board.length; i++) {
+        for(let j = 0; j < board[i].length; j++) {
+            if(board[i][j] === "W") {
+                board[i][j] = "O";
+            } else {
+                board[i][j] = "X"; 
+            }
+        }
+    }
+}
+
+function findNeighbors(board, i, j) {
+    if(i < 0 || i >= board.length || j < 0 || j >= board[i].length || board[i][j] === 'X' || board[i][j] === "W") return; 
+
+    board[i][j] = "W"; 
+    findNeighbors(board, i+1, j);
+    findNeighbors(board, i-1, j);
+    findNeighbors(board, i, j+1);
+    findNeighbors(board, i, j-1); 
+}
+
+flipBoard(board3); 
+
+console.log(board3); 
