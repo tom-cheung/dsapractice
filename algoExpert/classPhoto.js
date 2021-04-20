@@ -2,8 +2,8 @@
 // check if the first element of each row is taller or shorter => save the true/false value to a variable 
 // check subsequent elements, and if any deviate than it's not possible  
 
-[5, 4, 7]
-[3, 2, 4]
+// [5, 4, 7]
+// [3, 2, 4]
 
 
 
@@ -11,9 +11,9 @@
 
 // 4 > 1 === taller / if false then return false 
 
-[3, 2, 4]
-[5, 4, 7] => 4, 7, 5
-[3, 4, 2] => 2, 3, 4
+// [3, 2, 4]
+// [5, 4, 7] => 4, 7, 5
+// [3, 4, 2] => 2, 3, 4
 
 // sort both arrays b/c you can rearrange the students 
 // if there are any equal heights at the same indices return false 
