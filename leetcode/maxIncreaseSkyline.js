@@ -12,7 +12,7 @@ var maxIncreaseKeepingSkyline = function(grid) {
         let maxHeight = 0; 
         
         for(let y = 0; y < grid.length; y++) {
-            
+             
             let height = grid[y][i];
             if(height > maxHeight) {
                 maxHeight = height; 
