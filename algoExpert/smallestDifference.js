@@ -50,3 +50,26 @@ function smallestDifference(arrayOne, arrayTwo) {
 
 // [1, 2, 3]
 // [-10, -15, 20]
+
+function smallestDifference2(array1, array2) {
+    // Write your code here.
+      
+      let smallest = Math.abs(array1[0] - array2[0]); // O(1) 
+      let pair = []; // O(1)
+  
+      for(let i = 0; i < array1.length; i++) { // O(n)
+          for(let y = 0; y < array2.length; y++) { // O(m^n)
+              
+              let diff = Math.abs(array1[i] - array2[y])  
+              
+              if(diff < smallest) {
+                  smallest = diff; 
+                  pair = [array1[i], array2[y]];
+              }
+              
+          }
+  
+      }
+  
+      return pair; 
+  }
