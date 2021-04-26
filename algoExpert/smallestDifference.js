@@ -12,7 +12,7 @@
 
 function smallestDifference(arrayOne, arrayTwo) {
 
-    let sortedOne = arrayOne.sort((a,b) => a - b); 
+    let sortedOne = arrayOne.sort((a,b) => a - b); // O(nLogn)
     let sortedTwo = arrayTwo.sort((a,b) => a - b); 
 
     let topPointer = 0; // 3
