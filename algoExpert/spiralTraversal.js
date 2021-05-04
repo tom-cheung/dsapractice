@@ -1,4 +1,5 @@
 let arr = [
+    // [],
             [4, 3, 8, 11],
             [9, 6, 1, 42],
             [7, 5, 3, 86],
@@ -69,6 +70,68 @@ function spiralTraversal(arr) {
     let flattened = []; 
 
     while(flattened.length < (arr[0].length * arr.length)) {
+        for(let i = col; i < targetOne; i++) {
+            let element = arr[row][i];
+            if(element !== "X") {
+                flattened.push(arr[row][i]);
+                arr[row][i] = "X";
+            } 
+            col = i;  
+        } 
+
+        for(let i = row; i < targetTwo; i++) {
+            let element = arr[i][col]; 
+            if(element !== "X") {
+                flattened.push(arr[i][col]);
+                arr[i][col] = "X";
+            }
+            row = i; 
+        }
+
+        for(let i = col; i >= targetThree; i--) {
+            let element = arr[row][i]; 
+            if(element !== "X") {
+                flattened.push(arr[row][i]); 
+                arr[row][i] = "X"; 
+            }
+            col = i; 
+        }
+
+        for(let i = row; i >= targetFour; i--) {
+            let element = arr[i][col]; 
+            if(element !== "X") {
+                flattened.push(arr[i][col]); 
+                arr[i][col] = "X"
+            }
+            row = i; 
+        }
+
+        
+        // console.log(flattened);
+
+        targetOne--; 
+        targetTwo--; 
+        targetThree++; 
+        targetFour++; 
+        
+    }
+
+    return flattened; 
+}
+
+function spiralTraversalTwo(arr) {
+
+    let targetOne = arr[0].length; 
+    let targetTwo = arr.length; 
+    let targetThree = 0; 
+    let targetFour = 1; 
+    let row = 0; 
+    let col = 0; 
+
+    let flattened = []; 
+
+    while(flattened.length < (arr[0].length * arr.length)) {
+
         for(let i = col; i < targetOne; i++) {
             let element = arr[row][i];
             if(element !== "X") {
