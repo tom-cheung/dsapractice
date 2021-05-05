@@ -9,14 +9,12 @@ function productSum(array, layer=1) {
     
     let total = 0; 
       
-    for(let el of array) {
+    for(let el of array) { // O(n) time / potentially O(depth) with depth being the greatest depth found in the array (i.e. the deepest 2d array)
         if(Array.isArray(el)) {
-            total += productSum(el, layer + 1); 
+            total += productSum(el, layer + 1); // made the mistake of passing in layer++ before which incremented layer more than I wanted to 
         } else {
             total += el;		
         }
-        console.log(total);
-        console.log('layer', layer)
     }
   
     return layer * total; 
