@@ -34,7 +34,8 @@ function binarySearch(arr, target, mid=0) {
   }
 
 
-// O(log n) since I am not using slice 
+// time complexity of O(log n) since I am not using slice 
+// space complexity of O(log n) 
 function binarySearch(arr, target, left=0, right=arr.length - 1) {
 
     if(left > right) return -1; 
@@ -50,3 +51,22 @@ function binarySearch(arr, target, left=0, right=arr.length - 1) {
     }
 
 }
+
+// it's like a window, you close the left/right depending whether the target equals to the middle 
+function binarySearch1(arr, target, left=0, right=arr.length - 1) { // 2 / 3
+    while(left <= right) {
+        let mid = Math.floor((left + right) / 2);  // 2 + 3 = 5 / 2 => 2 
+        if(target === arr[mid]) return mid; // 33 !== 1 
+        if(target < arr[mid]) { // 33 < 1 
+            right = mid - 1; 
+        } else {               // 33 > 1 
+            left = mid + 1; 
+        }
+    }
+
+    return -1; 
+}
+
+console.log(binarySearch1([0, 1, 21, 33, 45, 45, 61, 71, 72, 73], 4)); 
+
+
