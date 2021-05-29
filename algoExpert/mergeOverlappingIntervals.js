@@ -10,7 +10,7 @@ function mergeOverlappingIntervals(arr) {
           let currStart = currInterval[0]; 
           let currEnd = currInterval[1]
   
-          if(start === 0 && end === 0) {
+          if(start === 0 && end === 0 ) {
               start = currStart; 
               end = currEnd; 
           } 
