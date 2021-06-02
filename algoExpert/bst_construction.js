@@ -5,6 +5,8 @@ class BST {
     this.right = null;
   }
 
+  // time complexity O(log n) since I am eliminating half the tree at each iteration 
+  // space complexity O(1) traversing by iterating and overwriting the same variable 
   insert(value) {
     // Write your code here.
 		let currentNode = this; 
