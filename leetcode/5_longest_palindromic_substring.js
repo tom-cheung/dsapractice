@@ -22,7 +22,7 @@ var longestPalindrome = function(str) {
 
 	    	while(str[left] !== undefined && str[right] !== undefined && str[left] === str[right]) {
                 if(str[left] !== undefined && str[right] !== undefined && str[left] === str[right]) {
-                    substring.unshift(str[left])			;
+                    substring.unshift(str[left]);
                     substring.push(str[right]); 
                 }
 	    		left--; 
@@ -66,7 +66,62 @@ var longestPalindrome = function(str) {
     
 };
 
-console.log(longestPalindrome('bb'))
+let longestPalindrome2 = function(str) {
+
+
+    let longest = ''; 
+    let count = 0; 
+
+    for(let i = 0; i < str.length; i++) {
+
+        let subs = str[i]; 
+
+        if(i - 1 >= 0 && i + 1 < str.length && str[i - 1] === str[i + 1]) {
+            let left = i - 1; 
+            let right = i + 1; 
+
+            while(left >= 0 && right < str.length && str[left] === str[right]) {
+                subs = str[left] + subs; 
+                subs += str[right]; 
+                left--; 
+                right++; 
+            }
+
+            if(subs.length > count) {
+                longest = subs; 
+                count = subs.length; 
+                subs = ''; 
+            }
+        }
+
+        if(i >= 0 && i + 1 < str.length && str[i] === str[i + 1]) {
+            let subs = ""; 
+            let left = i; 
+            let right = i + 1; 
+            while(left >= 0 && right < str.length && str[left] === str[right]) {
+                subs = str[left] + subs; 
+                subs += str[right]; 
+                left--; 
+                right++; 
+            }
+
+            if(subs.length > count) {
+                longest = subs; 
+                count = subs.length; 
+                subs = ''; 
+            }
+        }
+
+        if(subs.length > count) {
+            longest = subs; 
+            count = subs.length;
+        }
+    }
+
+    return longest; 
+}
+
+console.log(longestPalindrome2('abcd'))
 
 // a
 // aa
