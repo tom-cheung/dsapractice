@@ -32,6 +32,8 @@ function classPhotos(redShirtHeights, blueShirtHeights) {
   
       let taller = sortedRed[0] > sortedBlue[0]; 
       
+      debugger;
+
       for(let i = 1; i < redShirtHeights.length; i++) {
           if(sortedRed[i] === sortedBlue[i]) return false; 
           let compare = sortedRed[i] > sortedBlue[i];
@@ -40,3 +42,4 @@ function classPhotos(redShirtHeights, blueShirtHeights) {
     return true;
   }
   
+classPhotos([1, 2], [3, 4]);

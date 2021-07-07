@@ -188,4 +188,3 @@ function minHeightBst(array) {
  * }
  * 
  */
-
