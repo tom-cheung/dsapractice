@@ -1,101 +1,164 @@
-const fullJustify = (words, maxWidth) => {
-    const n = words.length;
-    const res = [];
-  
-    console.log(n);
-    console.log(n / maxWidth)
+// inputs are a string, and a maxWidth; 
+// the goal is to justify the string according to the maxWidth 
+// ["This", "is", "an", "example", "of", "text", "justification."], maxWidth = 16
+// The output should be an array 
+/**
+ * inputs are is an array of words and a maxWidth
+ * the goal is to return a new array where the words are concatenated into a sentence
+ * each sentence has to be up to maxWidth characters 
+ * if the words within a sentence do not add up to maxWidth, pad the sentence with whitespaces  
+ * the last sentence should only have whitespaces padded at the end. 
+ * 
+ */
 
-    for (var i = 0; i < n; i = j) {
-      // Step 1. Use j to find out where to cut the row (i ... j-1)
-      let len = -1;
+function justify(word, maxWidth) {
+  let charCount = 0; 
+  let sent = [[]]; 
 
-      for (var j = i; j < n && len + 1 + words[j].length <= maxWidth; j++) {
-        len += 1 + words[j].length;
-      }
-  
-      // Step 2. Calculate how many spaces to add for each word
-      let spaces = 1; // avg. spaces reserved for each word
-      let extra = 0; // extra left spaces
-  
-      if (j !== i + 1 && j !== n) {
-        spaces = (maxWidth - len) / (j - 1 - i) + 1;
-        extra = (maxWidth - len) % (j - 1 - i);
-      }
-  
-      // Step 3. Build the row with spaces + extra space + word
-      let row = words[i];
-      for (let k = i + 1; k < j; k++, extra--) {
-        row += ' '.repeat(spaces + (extra > 0 ? 1 : 0)) + words[k];
-      }
-      row += ' '.repeat(maxWidth - row.length);
-  
-      // Step 4. Push the row to final result
-      res.push(row);
+  for(let i = 0; i < word.length; i++) {
+    charCount += word[i].length + 1;
+
+    if(charCount - 1 <= maxWidth) {
+      sent[sent.length - 1].push(word[i]);  
+    } else {
+      sent.push([word[i]]);
+      charCount = word[i].length + 1; 
     }
-  
-    return res;
-  };
-
-//   console.log(fullJustify(["What","must","be","acknowledgment","shall","be"], 16))
-
-  // maxwidth per each row 
-  // go through each word
-  // keep a counter of the max width 
-  // push each word into a array if the number of characters doesn't exceed the remaining max width count 
-  // if it does exceed, add it in as a new subarray 
-
-  // to pad the spaces, revisit each subarray
-  // with another counter tracking the remaining spaces of maxwidth, from each word in the subarray add in a space until the counter is done
-  // move until you hit the last subarray, add all spaces to the end of 
-
-  function fun(words, maxWidth) {
-
-    let sent = [[]]; 
-    let count = maxWidth;
-    for(let word of words) {
-        if(word.length + sent[sent.length - 1].length < count) {
-            sent[sent.length - 1].push(word)
-            count -= word.length;
-        } else {
-            // sent[sent.length - 1][sent[sent.length - 1].length - 1 ] = sent[sent.length - 1][sent[sent.length - 1].length - 1 ].split(' ').join('');
-            count = maxWidth - word.length; 
-            sent.push([word])
-        }
-    }
-
-    console.log(sent);
-
-    for(let i = 0; i < sent.length; i++) {
-        let spaces = maxWidth - sent[i].join("").length; 
-        let j = 0; 
-
-        if(i === sent.length - 1) {
-            sent[i] = [sent[i].join(" ")]; 
-
-            spaces -= sent[i].length - 1; 
-            while(spaces > 0 ) { 
-                sent[i][0] += " "
-                spaces--; 
-            }
-            // sent[i].join("")
-        } else if(sent[i].length === 1) {
-            while(spaces > 0) {
-                sent[i][j % (sent[i].length - 1)] += " "
-                j++; 
-                spaces--; 
-            }
-        } else {
-            while(spaces > 0) {
-                sent[i][j % (sent[i].length - 1)] += " "
-                j++; 
-                spaces--; 
-            }
-            sent[i] = [sent[i].join("")];
-        }
-    }
-
-    return sent.join(',').split(','); 
   }
 
-//   console.log(fun(["This", "is", "an", "example", "of", "text", "justification."], 16))
-//   console.log(fun(["What","must","be","acknowledgment","shall","be"]), 16)
+  // add the whitespaces
+  for(let i = 0; i < sent.length; i++) {
+    // get the current character count for each sentence 
+    let count = 0; 
+    for(let word of sent[i]) {
+      count += word.length; 
+    }
+
+    count = maxWidth - count; 
+    
+    // iterate through each word of a sentence 
+    // if the sentence isn't the last 
+    if(i !== sent.length - 1 && sent[i].length > 1) {
+
+      let end = sent[i].length - 1;
+      let start = 0;   
+      while(count) {
+        sent[i][start % end] += " "; 
+        start++; 
+        count--; 
+      }
+      sent[i] = sent[i].join("");
+      console.log(sent[i].length)
+
+    } else {
+
+      // issue is if the last sentence has more then one char you need to add in a space between the the chars. 
+      // have conditionals here to check the length of 
+
+      if(sent[i].length === 1) {
+        let last = sent[i].length - 1;
+        while(count) {
+          sent[i][last] += " ";
+          count--; 
+        }
+        sent[i] = sent[i].join(' ');
+      } else {
+        // check the remaining length, subtract the number of chars - 1 (avoiding last word)
+        let wordCount = sent[i].length - 1; 
+        count = count - wordCount; 
+        let last = sent[i].length - 1; 
+        while(count) {
+          sent[i][last] += " ";
+          count--;
+        }
+        sent[i] = sent[i].join(' ');
+      }
+
+      console.log(sent[i].length)
+    }
+
+  } 
+
+  return sent; 
+}
+
+console.log(justify(["This", "is", "an", "example", "of", "text", "justification."], 16)); 
+console.log(justify(["What","must","be","acknowledgment","shall","be"], 16));
+
+let joinedString = ["This", "is", "an", "example", "of", "text", "justification."].join(" ");
+
+
+function justify2(words, maxWidth) {
+  let word = words.split(" ");
+
+  let charCount = 0; 
+  let sent = [[]]; 
+
+  for(let i = 0; i < word.length; i++) {
+    charCount += word[i].length + 1;
+
+    if(charCount - 1 <= maxWidth) {
+      sent[sent.length - 1].push(word[i]);  
+    } else {
+      sent.push([word[i]]);
+      charCount = word[i].length + 1; 
+    }
+  }
+
+  // add the whitespaces
+  for(let i = 0; i < sent.length; i++) {
+    // get the current character count for each sentence 
+    let count = 0; 
+    for(let word of sent[i]) {
+      count += word.length; 
+    }
+
+    count = maxWidth - count; 
+    
+    // iterate through each word of a sentence 
+    // if the sentence isn't the last 
+    if(i !== sent.length - 1 && sent[i].length > 1) {
+
+      let end = sent[i].length - 1;
+      let start = 0;   
+      while(count) {
+        sent[i][start % end] += " "; 
+        start++; 
+        count--; 
+      }
+      sent[i] = sent[i].join("");
+      console.log(sent[i].length)
+
+    } else {
+
+      // issue is if the last sentence has more then one char you need to add in a space between the the chars. 
+      // have conditionals here to check the length of 
+
+      if(sent[i].length === 1) {
+        let last = sent[i].length - 1;
+        while(count) {
+          sent[i][last] += " ";
+          count--; 
+        }
+        sent[i] = sent[i].join(' ');
+      } else {
+        // check the remaining length, subtract the number of chars - 1 (avoiding last word)
+        let wordCount = sent[i].length - 1; 
+        count = count - wordCount; 
+        let last = sent[i].length - 1; 
+        while(count) {
+          sent[i][last] += " ";
+          count--;
+        }
+        sent[i] = sent[i].join(' ');
+      }
+
+      console.log(sent[i].length)
+    }
+
+  } 
+
+  return sent; 
+}
+
+console.log(justify2(joinedString, 16));
