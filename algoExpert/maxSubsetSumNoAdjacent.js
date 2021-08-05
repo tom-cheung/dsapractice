@@ -74,3 +74,34 @@ function maxSubsetSumNoAdjacent(array) {
 
     return maxSum[maxSum.length - 1];
 }
+
+// O(n) time since it's necessary to traverse the entire array 
+// O(n) space since an array of the same size as the input is being created 
+
+function maxSubsetSumNoAdjacent(array) {
+    if(array.length < 1) return 0; 
+    // let maxSum = [];
+    let maxSum = null;
+    let prevMax = null
+    for(let i = 0; i < array.length; i++) {
+        if(i === 0) {
+            // maxSum.push(array[i]);
+            maxSum = array[i];
+        } else if(i === 1) {
+            // maxSum.push(Math.max(array[i], array[i - 1]));
+            prevMax = maxSum;
+            maxSum = Math.max(array[i], prevMax);
+        } else {
+            // maxSum.push(Math.max(maxSum[i - 1], maxSum[i - 2] + array[i])); 
+            let currentMax = maxSum; 
+            maxSum = Math.max(maxSum, prevMax + array[i]);
+            prevMax = currentMax;
+        }
+    }
+
+    // return maxSum[maxSum.length - 1];
+    return maxSum;
+}
+
+// same time complexity
+// space complexity changes to O(1) because I an using two variable to track the maxSum and prevMax regardless of the input size. 
